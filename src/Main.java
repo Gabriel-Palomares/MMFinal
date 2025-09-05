@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,17 +16,17 @@ public class Main {
         int opcao = -1;
         while (opcao != 0) {
             System.out.print("""
-                    ***********************************************************
-                    Bem-vindo ao Sistema de Matchmaking
+                **************************************************
+                Bem-vindo ao Sistema de Matchmaking
 
-                    1. Adicionar jogador
-                    2. Listar jogadores disponíveis
-                    3. Criar partida (Modo de Jogo fixo)
-                    4. Simular partida (adicionar vitorias/derrotas)
-                    0. Sair
+                1. Adicionar jogador
+                2. Listar jogadores disponíveis
+                3. Criar partida (Modo de Jogo fixo)
+                4. Simular partida (adicionar vitorias/derrotas)
+                0. Sair
 
-                    Escolha uma opção:
-                    ***********************************************************
+                Escolha uma opção:
+                **************************************************
             """);
 
             try {
@@ -60,16 +61,35 @@ public class Main {
     }
 
     private static void adicionarJogador() {
+        int quantidade = 0;
+        try {
+            System.out.print("Quantos jogadores você quer adicionar: ");
+            quantidade = scanner.nextInt();
+            scanner.nextLine();
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada inválida. Por favor, digite um número.");
+            scanner.nextLine();
+            return;
+        }
 
-        System.out.println("Quantos jogadores voce quer adicionar: ");
-        int quantidade = scanner.nextInt();
-
-        for (int i = 0; i < quantidade; i++){
+        for (int i = 0; i < quantidade; i++) {
+            System.out.println("Adicionando jogador " + (i + 1) + " de " + quantidade + ":");
             System.out.print("Digite o nome do jogador: ");
-            String nome = scanner.next();
-            System.out.println(" ");
-            System.out.print("Digite a idade do jogador: ");
-            int idade = scanner.nextInt();
+            String nome = scanner.nextLine();
+
+            int idade = 0;
+            boolean idadeValida = false;
+            while (!idadeValida) {
+                try {
+                    System.out.print("Digite a idade do jogador: ");
+                    idade = scanner.nextInt();
+                    scanner.nextLine();
+                    idadeValida = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Entrada inválida. Por favor, digite um número para a idade.");
+                    scanner.nextLine();
+                }
+            }
 
             jogadoresDisponiveis.add(new Jogador(nome, idade));
             System.out.println("Jogador " + nome + " adicionado com sucesso!");
@@ -80,7 +100,7 @@ public class Main {
         if (jogadoresDisponiveis.isEmpty()) {
             System.out.println("Nenhum jogador cadastrado.");
         } else {
-            System.out.println("--- Jogadores Disponíveis ---");
+            System.out.println("\n--- Jogadores Disponíveis ---");
             System.out.printf("%-4s%-20s%-10s%-15s%n", "ID", "Nome", "Vitórias", "Partidas");
             for (int i = 0; i < jogadoresDisponiveis.size(); i++) {
                 Jogador j = jogadoresDisponiveis.get(i);
@@ -103,7 +123,7 @@ public class Main {
 
             ModoDeJogo modo = new ModoDeJogo("Personalizado " + jogadoresPorEquipe + "v" + jogadoresPorEquipe, jogadoresPorEquipe);
             matchmaking.criarPartidaBalanceada(jogadoresDisponiveis, modo);
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Por favor, digite um número.");
             scanner.nextLine();
         }
@@ -161,7 +181,7 @@ public class Main {
                 System.out.println("Número de equipe inválido.");
             }
 
-        } catch (Exception e) {
+        } catch (InputMismatchException e) {
             System.out.println("Entrada inválida. Por favor, digite um número.");
             scanner.nextLine();
         }
