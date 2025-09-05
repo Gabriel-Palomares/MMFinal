@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    private static List<Jogador> jogadoresDisponiveis = new ArrayList<>();
-    private static Matchmaking matchmaking = new Matchmaking();
-    private static Scanner scanner = new Scanner(System.in);
+    private static final List<Jogador> jogadoresDisponiveis = new ArrayList<>();
+    private static final Matchmaking matchmaking = new Matchmaking();
+    private static final Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
         exibirMenuPrincipal();
