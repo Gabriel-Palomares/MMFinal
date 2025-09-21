@@ -1,22 +1,16 @@
 public class Jogador {
     private String nome;
-    private int idade;
     private int numeroDeVitorias;
     private int partidasJogadas;
 
-    public Jogador(String nome, int idade) {
+    public Jogador(String nome) {
         this.nome = nome;
-        this.idade = idade;
         this.numeroDeVitorias = 0;
         this.partidasJogadas = 0;
     }
 
     public String getNome() {
         return nome;
-    }
-
-    public int getIdade() {
-        return idade;
     }
 
     public int getNumeroDeVitorias() {

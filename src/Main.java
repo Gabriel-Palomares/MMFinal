@@ -77,21 +77,7 @@ public class Main {
             System.out.print("Digite o nome do jogador: ");
             String nome = scanner.nextLine();
 
-            int idade = 0;
-            boolean idadeValida = false;
-            while (!idadeValida) {
-                try {
-                    System.out.print("Digite a idade do jogador: ");
-                    idade = scanner.nextInt();
-                    scanner.nextLine();
-                    idadeValida = true;
-                } catch (InputMismatchException e) {
-                    System.out.println("Entrada inválida. Por favor, digite um número para a idade.");
-                    scanner.nextLine();
-                }
-            }
-
-            jogadoresDisponiveis.add(new Jogador(nome, idade));
+            jogadoresDisponiveis.add(new Jogador(nome));
             System.out.println("Jogador " + nome + " adicionado com sucesso!");
         }
     }
